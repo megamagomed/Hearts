@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        button {
+
+            background-color: yellow;
+            font-size: 3em;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 1s ease-out;
+        }
+
+        button.changed {
+            transform: scale(1.2);
+        }
+
+        button.modified {
+            background-color: lightblue;
+        }
+
+        div {
+            position: absolute;
+            border-radius: 50%;
+            height: 50px;
+            width: 50px;
+            background-color: red;
+            animation: fadeOut 1.5s forwards;
+
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 0;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button>Activate</button>
+
+    <script>
+        let int = setInterval(buttPulse, 500)
+        let butt = document.querySelector('button');
+        butt.addEventListener('click', buttonFunc);
+        let mouseMove = document.addEventListener('mousemove', mouseMoveFunc)
+        let body = document.querySelector('body')
+
+        function buttonFunc(event) {
+            butt.classList.toggle("modified")
+            clearInterval(int)
+        }
+
+        function buttPulse() {
+            butt.classList.toggle("changed")
+        }
+
+        function mouseMoveFunc(event) {
+            let coorX = event.pageX;
+            let coorY = event.pageY;
+            let circle = document.createElement('div')
+            circle.style.top = coorY + 'px'
+            circle.style.left = coorX + 'px'
+            body.append(circle)
+            setTimeout(deleteObj, 1000, circle)
+        }
+        function deleteObj(circle) {
+            circle.remove();
+
+        }
+
+
+    </script>
+</body>
+
+</html>
